@@ -2,6 +2,10 @@
 Asterisk Odoo Project
 #####################
 
+Don't mind this readme file for the moment. A lot needs to be modified.
+
+
+
 Has to be done only once (the first time you spin the compose file)
 
 execute the following command:
