@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+
+  odoo:
+#    image: odoo:13.0
+    build: odoo
+    restart: unless-stopped
+    depends_on:
+      - db
+#    commented network_mode due to Pycharm error while developing
+    network_mode: host
+    ports:
+      - 8069:8069
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+#    links:
+#      - db
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    network_mode: host
+    ports:
+    - 5432:5432
+    environment:
+      - POSTGRES_DB=asterisk
+      - POSTGRES_PASSWORD=asterisk
+      - POSTGRES_USER=asterisk
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+
+#  asterisk-agent:
+#    image: odooist/asterisk-odoo-agent:latest
+#    network_mode: host
+#    # Required to manage host's ipsets.
+#    privileged: true
+#    restart: unless-stopped
+#    depends_on:
+#      - rabbitmq
+#    environment:
+#      - LOG_LEVEL=DEBUG
+#      # Odoo settings
+#      - ODOO_DB=asterisk
+#      - ODOO_USER=asterisk
+#      # Change the password in Odoo and here!
+#      - ODOO_PASS=asterisk
+#      - ODOO_HOST=localhost
+#      - ODOO_PORT=8069
+#      - ODOO_BUS_PORT=8072
+#      - ODOO_USE_SSL=no
+#      # Odoo.sh users shoud set the following options
+#      # - WEB_SERVER_ENABLED=yes
+#      # - ODOO_BUS_ENABLED=no
+#      # - ODOO_USE_SSL=yes
+#      # AMI settings
+#      - ASTERISK_AMI_HOST=127.0.0.1
+#      - ASTERISK_AMI_PORT=5038
+#      - ASTERISK_AMI_USER=asterisk
+#      - ASTERISK_AMI_PASS=asterisk
+#      # say yes to debug AMI events sent to Odoo
+#      - ASTERISK_AMI_TRACE_EVENTS=yes
+#
+#
+#  rabbitmq:
+#    image: rabbitmq:3.8-rc-alpine
+#    restart: unless-stopped
+#    ports:
+#      - 5672:5672
+#
+#
+#  asterisk-console:
+#    image: asterisk-console/asterisk-console:latest
+#    restart: unless-stopped
+#    ports:
+#    - 5038:5038
+#    volumes:
+#      - asterisk-data:/var/run/asterisk
+
+
+volumes:
+  asterisk-data:
+  odoo-web-data:
+  odoo-db-data:

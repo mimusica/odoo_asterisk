@@ -1,0 +1,5 @@
+humanize
+git+https://github.com/mimusica/PyAjam.git
+requests
+paho-mqtt
+ipdb
