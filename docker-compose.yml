@@ -3,8 +3,7 @@ version: '3'
 services:
 
   odoo:
-#    image: odoo:13.0
-    build: odoo
+    build: ./odoo/Dockerfile
     restart: unless-stopped
     depends_on:
       - db
@@ -16,8 +15,6 @@ services:
       - odoo-web-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
-#    links:
-#      - db
 
   db:
     image: postgres:latest

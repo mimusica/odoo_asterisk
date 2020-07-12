@@ -16,7 +16,7 @@ ENV LANG C.UTF-8
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 ## TODO: remove the git program for security reasons
-## FIXME: --> Briefly install it via the docker-compose file, then remove it again.
+## FIXME: --> Briefly install git via the docker-compose file, then remove git again.
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
             ca-certificates \
@@ -74,7 +74,7 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
         && rm -rf /var/lib/apt/lists/* odoo.deb
 
 # Copy entrypoint script and Odoo configuration file
-COPY entrypoint.sh /
+COPY init/entrypoint.sh /
 #COPY ./odoo.conf /etc/odoo/
 
 COPY init/check-requirements.py /
@@ -85,7 +85,7 @@ COPY init/requirements.txt /
 RUN mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons && \
     python3 check-requirements.py && \
-    rm /requirements.txt
+    rm /requirements.txt /check-requirements.py
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
 # Expose Odoo services
@@ -94,7 +94,7 @@ EXPOSE 8069 8071 8072
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
 
-COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
+COPY init/wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
 # make both files owned by and executable for the odoo USER
 RUN chown odoo /entrypoint.sh /usr/local/bin/wait-for-psql.py && \
