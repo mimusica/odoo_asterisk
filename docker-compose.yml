@@ -3,7 +3,7 @@ version: '3'
 services:
 
   odoo:
-    build: ./odoo/Dockerfile
+    build: ./odoo/
     restart: unless-stopped
     depends_on:
       - db
