@@ -7,14 +7,13 @@ services:
     restart: unless-stopped
     depends_on:
       - db
-#    commented network_mode due to Pycharm error while developing
     network_mode: host
     ports:
       - 8069:8069
     volumes:
       - odoo-web-data:/var/lib/odoo
-      - ./config:/etc/odoo
-      - ./addons:/mnt/extra-addons
+      - ./odoo/config:/etc/odoo
+      - ./odoo/addons:/mnt/extra-addons
 
   db:
     image: postgres:latest

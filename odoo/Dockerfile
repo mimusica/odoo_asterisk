@@ -6,7 +6,6 @@
 #   Modified by: Christophe Langenberg  <Christophe@langenberg.be>		                                #
 #													                                                    #
 #########################################################################################################
-
 FROM debian:buster-slim
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
@@ -75,13 +74,11 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
 
 # Copy entrypoint script and Odoo configuration file
 COPY init/entrypoint.sh /
-#COPY ./odoo.conf /etc/odoo/
 
 COPY init/check-requirements.py /
 COPY init/requirements.txt /
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-#RUN chown odoo /etc/odoo/odoo.conf \
 RUN mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons && \
     python3 check-requirements.py && \
