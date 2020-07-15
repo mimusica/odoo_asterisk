@@ -78,6 +78,6 @@ services:
 
 
 volumes:
-  asterisk-data:
+#  asterisk-data:
   odoo-web-data:
   odoo-db-data:
