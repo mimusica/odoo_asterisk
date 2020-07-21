@@ -58,6 +58,8 @@ RUN ASTERISK_DIR=$(tar -f asterisk-${ASTERISK_VERSION}-current.tar.gz -t | head 
 COPY ./init/asterisk /etc/default/
 COPY ./init/asterisk.conf /etc/asterisk/
 
+# create the asterisk user, without a homedirectory + assigning the needed groups & changing the owner for all asterisk
+# related directories
 RUN useradd -M asterisk && \
     usermod -aG audio,dialout asterisk && \
     chown -R asterisk:asterisk  /etc/asterisk \
@@ -82,5 +84,5 @@ CMD ['asterisk','-f']
 
 
 
-## TODO: continue creating this image
+## TODO: continue creating/improving this image
 ## TODO: make the image smaler (cleanup apt cache stuff, etc.)
