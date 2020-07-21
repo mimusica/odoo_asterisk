@@ -29,6 +29,12 @@ services:
     volumes:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
 
+#  asterisk:
+#    build: ./asterisk/
+#    restart: unless-stopped
+#    volumes:
+#    - ./asterisk:/mnt/development
+
 #  asterisk-agent:
 #    image: odooist/asterisk-odoo-agent:latest
 #    network_mode: host

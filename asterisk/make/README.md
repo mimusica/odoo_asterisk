@@ -1,0 +1,1 @@
+# Asterisk config for compiling the source

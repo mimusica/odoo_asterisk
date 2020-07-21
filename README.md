@@ -1,6 +1,4 @@
-#####################
-Asterisk Odoo Project
-#####################
+# Asterisk Odoo Project
 
 Don't mind this readme file for the moment. A lot needs to be modified.
 

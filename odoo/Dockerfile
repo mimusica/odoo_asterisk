@@ -102,3 +102,5 @@ USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
+
+## TODO: create a script to initialise our database and so prepare it for a first use.
